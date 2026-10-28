@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lúmen | Hallen Tech</title>
+  <meta name="description" content="Lúmen, o sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech: do exame ao PDF emitido, com os dados cifrados no computador da clínica.">
+  <meta property="og:title" content="Lúmen | Hallen Tech">
+  <meta property="og:description" content="Laudos de endoscopia ginecológica do exame ao PDF emitido, com modelos, imagens da câmera, backup cifrado e auditoria.">
+  <meta property="og:image" content="https://lumen.hallentech.com/telas/claro/inicio.png">
+  <meta name="theme-color" content="#14264A">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    :root {
+      --fundo: #F5F8FC; --painel: #FFFFFF; --papel: #EDF2F8; --linha: #DCE5F1; --texto: #14264A; --suave: #4A5F80;
+      --apoio: #2E5F9E; --navy: #14264A; --laranja: #EA9A13; --luz1: #03E7FC; --luz2: #0183FB;
+      --raio: 14px;
+      --serifa: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Carlito, Calibri, Lato, "Helvetica Neue", sans-serif;
+      color-scheme: light;
+    }
+    :root[data-tema="escuro"] {
+      --fundo: #0C1527; --painel: #14213A; --papel: #101B31; --linha: #24324D; --texto: #E8EEF7; --suave: #A3B3CC;
+      --apoio: #8FB4E6; color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; transition: background .25s ease, color .25s ease; }
+    a { color: inherit; }
+    .largura { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    header { padding: 18px 0; }
+    header .largura { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serifa); font-weight: 700; font-size: 22px; }
+    .logo img { width: 34px; height: 34px; display: block; }
+    nav { display: flex; align-items: center; gap: 22px; }
+    nav a { color: var(--suave); text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--texto); }
+    .tema { display: inline-flex; border: 1px solid var(--linha); border-radius: 999px; padding: 3px; background: var(--painel); }
+    .tema button { font: 600 13px var(--sans); border: 0; background: transparent; color: var(--suave); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+    .tema button[aria-pressed="true"] { background: var(--navy); color: #FFFFFF; }
+    :root[data-tema="escuro"] .tema button[aria-pressed="true"] { background: #E8EEF7; color: #14264A; }
+    .tema button:focus-visible, .botao:focus-visible, nav a:focus-visible { outline: 3px solid var(--luz2); outline-offset: 2px; }
+    .hero { text-align: center; padding: 52px 0 24px; }
+    .marcador { width: 56px; height: 5px; border-radius: 3px; background: var(--laranja); margin: 0 auto 22px; }
+    .hero h1 { font-family: var(--serifa); font-weight: 700; font-size: clamp(36px, 6vw, 62px); line-height: 1.07; letter-spacing: -0.01em; margin: 0 0 18px; }
+    .hero h1 span { background: linear-gradient(90deg, var(--luz1), var(--luz2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { color: var(--suave); font-size: clamp(17px, 2.2vw, 20px); max-width: 720px; margin: 0 auto 30px; }
+    .botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .botao { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 16px; transition: transform .15s ease; }
+    .botao:hover { transform: translateY(-1px); }
+    .botao.principal { background: var(--navy); color: #FFFFFF; box-shadow: 0 12px 30px -12px rgba(20,38,74,.55); }
+    :root[data-tema="escuro"] .botao.principal { background: linear-gradient(135deg, var(--luz1), var(--luz2)); color: #0C1527; }
+    .botao.principal[aria-disabled="true"] { opacity: .55; cursor: default; transform: none; }
+    .botao.secundario { border: 1px solid var(--linha); color: var(--texto); background: var(--painel); }
+    .nota { color: var(--suave); font-size: 14px; margin-top: 14px; }
+    .moldura { margin: 48px auto 0; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); box-shadow: 0 40px 90px -36px rgba(20,38,74,.45); background: var(--painel); }
+    .moldura .barra { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--linha); font-size: 13px; color: var(--suave); }
+    .moldura .barra img { width: 18px; height: 18px; }
+    .moldura img.tela-img { display: block; width: 100%; height: auto; }
+    section { padding: 80px 0 0; }
+    h2 { font-family: var(--serifa); font-weight: 700; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.15; margin: 0 0 12px; }
+    .rotulo { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--apoio); margin-bottom: 10px; }
+    .sub { color: var(--suave); max-width: 720px; margin: 0 0 32px; font-size: 17px; }
+    .passos, .grade, .instalar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .cartao { background: var(--painel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 22px; }
+    .cartao .n { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: rgba(1,131,251,.12); color: var(--luz2); margin-bottom: 14px; }
+    .cartao h3 { margin: 0 0 6px; font-size: 17px; }
+    .cartao p { margin: 0; color: var(--suave); font-size: 15px; }
+    .tela { display: grid; grid-template-columns: 1fr 1.6fr; gap: 36px; align-items: center; margin-top: 56px; }
+    .tela.inversa { grid-template-columns: 1.6fr 1fr; }
+    .tela.inversa .texto { order: 2; }
+    .tela img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--linha); display: block; box-shadow: 0 24px 60px -30px rgba(20,38,74,.45); background: var(--painel); }
+    .tela h3 { font-family: var(--serifa); font-size: 24px; margin: 0 0 10px; }
+    .tela p { color: var(--suave); margin: 0; }
+    .lado { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .lado figure { margin: 0; }
+    .lado img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--linha); display: block; box-shadow: 0 24px 60px -30px rgba(20,38,74,.45); }
+    .lado figcaption { margin-top: 10px; font-size: 14px; color: var(--suave); text-align: center; }
+    .seguranca { background: var(--navy); color: #FFFFFF; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; align-items: center; }
+    .seguranca h2 { color: #FFFFFF; }
+    .seguranca p, .seguranca li { color: #C8D8EE; }
+    .seguranca ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+    .seguranca img { width: 140px; height: 140px; }
+    code { font: 13.5px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--papel); border: 1px solid var(--linha); border-radius: 6px; padding: 2px 6px; }
+    footer.largura { padding-bottom: 44px; margin-top: 96px; color: var(--suave); font-size: 14px; text-align: center; }
+    footer .linha-topo { border-top: 1px solid var(--linha); padding-top: 34px; display: grid; gap: 12px; justify-items: center; }
+    .feito { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; text-decoration: none; color: var(--suave); }
+    .feito img { height: 34px; width: auto; display: block; }
+    .feito strong { color: var(--texto); font-family: var(--serifa); font-size: 17px; }
+    @media (max-width: 860px) {
+      .tela, .tela.inversa, .seguranca { grid-template-columns: 1fr; gap: 18px; }
+      .tela.inversa .texto { order: 0; }
+      .lado { grid-template-columns: 1fr; }
+      nav a { display: none; }
+      .seguranca { padding: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } body, .botao { transition: none; } }
+  </style>
+  <script>
+    // Tema: segue o sistema, ou a escolha salva neste navegador.
+    (function () {
+      var salvo = null;
+      try { salvo = localStorage.getItem('lumen-tema'); } catch (e) {}
+      var escuro = salvo ? salvo === 'escuro' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-tema', escuro ? 'escuro' : 'claro');
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <div class="largura">
+      <a class="logo" href="#"><img src="icone.png" alt="">Lúmen</a>
+      <nav aria-label="Seções">
+        <a href="#como">Como funciona</a>
+        <a href="#telas">Telas</a>
+        <a href="#seguranca">Segurança</a>
+        <a href="#baixar-secao">Baixar</a>
+        <div class="tema" role="group" aria-label="Tema da página e das telas">
+          <button type="button" data-tema-botao="claro">Claro</button>
+          <button type="button" data-tema-botao="escuro">Escuro</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero largura">
+      <div class="marcador"></div>
+      <h1>Do exame ao laudo emitido.<br><span>Com a luz certa.</span></h1>
+      <p>O Lúmen é o sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech: modelos de texto, imagens da câmera, revisão do PDF e emissão arquivada, com os dados cifrados no computador da clínica.</p>
+      <div class="botoes">
+        <a class="botao principal" id="baixar" href="#baixar-secao" aria-disabled="true">Em breve para Windows</a>
+        <a class="botao secundario" href="#como">Como funciona</a>
+      </div>
+      <div class="nota" id="versao">Windows 11 primeiro, macOS em seguida. Para implantar na sua clínica, fale com a Hallen Tech.</div>
+      <div class="moldura">
+        <div class="barra"><img src="favicon.png" alt="">Lúmen</div>
+        <img class="tela-img" data-tela="inicio" alt="Tela Início com os números do período, a fila de trabalho e o estado do backup">
+      </div>
+    </div>
+
+    <section id="como" class="largura">
+      <span class="rotulo">Como funciona</span>
+      <h2>Um laudo por vez, sem retrabalho</h2>
+      <p class="sub">O médico escreve, revisa e emite. A secretária cuida do cadastro. O administrador cuida da clínica e do backup. Cada um vê só o que é seu.</p>
+      <div class="passos">
+        <div class="cartao"><div class="n">1</div><h3>Abra o laudo</h3><p>Paciente, médico e tipo de exame. Escolha um modelo da clínica ou um modelo seu para começar com o texto pronto.</p></div>
+        <div class="cartao"><div class="n">2</div><h3>Traga as imagens</h3><p>Importe da câmera de vídeo (MedCam) ou arraste os arquivos. Ordene, descreva e escolha as que vão para o PDF.</p></div>
+        <div class="cartao"><div class="n">3</div><h3>Revise o PDF</h3><p>Veja a página exatamente como vai sair, no layout da clínica, antes de emitir.</p></div>
+        <div class="cartao"><div class="n">4</div><h3>Emita</h3><p>O PDF é arquivado com uma impressão digital (hash). Reimpressões e retificações ficam registradas.</p></div>
+      </div>
+    </section>
+
+    <section id="telas" class="largura">
+      <span class="rotulo">Por dentro</span>
+      <h2>Feito para o dia a dia do consultório</h2>
+      <p class="sub">Use o seletor Claro e Escuro no topo: as telas abaixo mudam junto.</p>
+
+      <div class="tela">
+        <div class="texto"><h3>Início</h3><p>Laudos do período comparados com o anterior, rascunhos e o que está aguardando emissão, sem expor conteúdo clínico a quem não é médico.</p></div>
+        <img data-tela="inicio" alt="Tela Início com os números do período e a fila de trabalho" loading="lazy">
+      </div>
+
+      <div class="tela inversa">
+        <div class="texto"><h3>Laudos</h3><p>Busca por paciente, filtros por situação, tipo e período, e o caminho de cada laudo do rascunho à emissão.</p></div>
+        <img data-tela="laudos" alt="Lista de laudos com filtros por situação, tipo e período" loading="lazy">
+      </div>
+
+      <div class="tela">
+        <div class="texto"><h3>Editor de laudo</h3><p>Seções de histeroscopia e videolaparoscopia, modelos com um clique, salvamento automático e a galeria de imagens ao lado.</p></div>
+        <img data-tela="editor" alt="Editor de laudo de histeroscopia com modelos e galeria de imagens" loading="lazy">
+      </div>
+
+      <div class="tela inversa">
+        <div class="texto"><h3>Revisar e emitir</h3><p>O PDF final na tela, com a identidade da clínica. Emitido, ele é arquivado e não muda; correções viram uma retificação.</p></div>
+        <img data-tela="revisar-e-emitir" alt="Revisão do PDF do laudo antes da emissão" loading="lazy">
+      </div>
+
+      <div class="tela">
+        <div class="texto"><h3>Backup automático</h3><p>Cópias cifradas em outro disco, verificadas, com restauração guiada. O último backup aparece no Início.</p></div>
+        <img data-tela="backup" alt="Configurações de backup com o último backup verificado" loading="lazy">
+      </div>
+    </section>
+
+    <section id="claro-escuro" class="largura">
+      <span class="rotulo">Claro e escuro</span>
+      <h2>Confortável de manhã e no fim do plantão</h2>
+      <p class="sub">O Lúmen acompanha o tema do Windows e do macOS, ou fica no que você escolher. As cores foram ajustadas para o contraste de leitura nos dois.</p>
+      <div class="lado">
+        <figure><img onerror="this.closest('section').style.display='none'" src="telas/claro/editor.png" alt="Editor de laudo no tema claro" loading="lazy"><figcaption>Tema claro</figcaption></figure>
+        <figure><img src="telas/escuro/editor.png" alt="Editor de laudo no tema escuro" loading="lazy"><figcaption>Tema escuro</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="seguranca" class="largura">
+      <div class="seguranca">
+        <div><img src="simbolo-negativo.svg" alt=""><h2>Dados de saúde tratados como dados de saúde</h2><p>Pensado para a LGPD desde o começo.</p></div>
+        <ul>
+          <li>Banco de dados cifrado no computador da clínica; nada vai para a nuvem sem você decidir.</li>
+          <li>Login por usuário, bloqueio após 10 minutos sem uso e papéis separados: médico, secretária, administrador e suporte.</li>
+          <li>Conteúdo clínico só para médicos.</li>
+          <li>Auditoria encadeada de quem fez o quê, verificada todos os dias.</li>
+          <li>Backup cifrado, exportação dos dados do paciente quando ele pedir e importação do sistema anterior.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="largura">
+      <h2>E mais</h2>
+      <p class="sub">O que faz diferença na rotina.</p>
+      <div class="grade">
+        <div class="cartao"><h3>Modelos da clínica e pessoais</h3><p>Textos prontos por tipo de exame, com busca e o modelo preferido de cada médico.</p></div>
+        <div class="cartao"><h3>Imagens da câmera</h3><p>Importação do MedCam somente leitura e arraste de arquivos do Explorer ou do Finder.</p></div>
+        <div class="cartao"><h3>Atalhos de teclado</h3><p>Ctrl ou ⌘ para trocar de tela, abrir um laudo novo, buscar e emitir, sem tirar a mão do teclado.</p></div>
+        <div class="cartao"><h3>Acessível</h3><p>Texto até 200%, contraste de leitura, navegação por teclado e rótulos para leitor de tela.</p></div>
+        <div class="cartao"><h3>Sistema anterior</h3><p>Importação dos laudos, pacientes e imagens do sistema antigo, com simulação antes de gravar.</p></div>
+        <div class="cartao"><h3>Funciona sem internet</h3><p>Tudo roda no computador da clínica, sem depender de conexão para laudar.</p></div>
+      </div>
+    </section>
+
+    <section id="baixar-secao" class="largura">
+      <span class="rotulo">Baixar</span>
+      <h2>Em breve</h2>
+      <p class="sub" id="baixar-texto">A primeira versão pública para Windows 11 sai em breve, assinada pela Hallen Tech. O macOS vem em seguida. Enquanto isso, a implantação é acompanhada pela nossa equipe.</p>
+      <div class="instalar">
+        <div class="cartao"><div class="n">1</div><h3>Fale com a gente</h3><p><a href="mailto:contato@hallentech.com">contato@hallentech.com</a> ou WhatsApp (21) 99697-3923.</p></div>
+        <div class="cartao"><div class="n">2</div><h3>Implantação</h3><p>Instalamos no computador da clínica, importamos o sistema anterior e configuramos o backup.</p></div>
+        <div class="cartao"><div class="n">3</div><h3>Treinamento</h3><p>Uma sessão com médicos e secretaria para começar com segurança.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="largura">
+    <div class="linha-topo">
+      <a class="feito" href="https://hallentech.com">Lúmen, por <img src="hallen-tech.png" alt="Logo da Hallen Tech"><strong>Hallen Tech</strong></a>
+      <div>Os pacotes de cada versão ficarão em <a href="https://github.com/hallentech/lumen-releases/releases">github.com/hallentech/lumen-releases</a>.</div>
+      <div>Hallen Consultoria Tecnológica Ltda. | CNPJ 45.106.125/0001-39 | Barra Mansa, RJ</div>
+    </div>
+  </footer>
+
+  <script>
+    // Telas do tema atual: cada <img data-tela> aponta para telas/<tema>/<nome>.png.
+    function aplicarTema(tema) {
+      document.documentElement.setAttribute('data-tema', tema);
+      document.querySelectorAll('img[data-tela]').forEach(function (img) {
+        img.onerror = function () { img.style.display = 'none'; };
+        img.onload = function () { img.style.display = ''; };
+        img.src = 'telas/' + tema + '/' + img.getAttribute('data-tela') + '.png';
+      });
+      document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-tema-botao') === tema));
+      });
+    }
+    document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var tema = b.getAttribute('data-tema-botao');
+        try { localStorage.setItem('lumen-tema', tema); } catch (e) {}
+        aplicarTema(tema);
+      });
+    });
+    aplicarTema(document.documentElement.getAttribute('data-tema'));
+
+    // Download: quando houver uma release com o instalador do Windows, o botão passa a baixá-lo.
+    fetch('https://api.github.com/repos/hallentech/lumen-releases/releases/latest')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function (rel) {
+        var exe = (rel.assets || []).find(function (a) { return /\.exe$/i.test(a.name); });
+        if (!exe) return;
+        var botao = document.getElementById('baixar');
+        botao.href = exe.browser_download_url;
+        botao.removeAttribute('aria-disabled');
+        botao.textContent = 'Baixar para Windows';
+        var versao = String(rel.tag_name || '').replace(/^v/, '');
+        var mb = Math.round(exe.size / 1e6);
+        document.getElementById('versao').textContent = 'Versão ' + versao + ', ' + mb + ' MB. Para Windows 10 ou 11 de 64 bits.';
+      })
+      .catch(function () {});
+    document.getElementById('baixar').addEventListener('click', function (e) {
+      if (this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); document.getElementById('baixar-secao').scrollIntoView(); }
+    });
+  </script>
+</body>
+</html>
