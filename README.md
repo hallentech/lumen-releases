@@ -9,6 +9,7 @@ Sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech, para Wind
 
 [**lumen.hallentech.com**](https://lumen.hallentech.com)
 
+<img src="docs/telas/claro/inicio.png" alt="Tela Início do Lúmen com os números do período e a fila de trabalho" width="900">
 
 </div>
 
@@ -17,6 +18,16 @@ Sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech, para Wind
 O Lúmen junta, numa janela só, o caminho do laudo: o paciente e o exame, o texto a partir de modelos da clínica ou do próprio médico, as imagens da câmera (MedCam) ou de arquivos, a revisão do PDF no layout da clínica e a emissão arquivada com impressão digital (hash). Reimpressões e retificações ficam registradas.
 
 Tudo roda no computador da clínica, com o banco de dados cifrado, login por usuário, papéis separados (médico, secretária, administrador e suporte), auditoria encadeada e backup automático cifrado.
+
+## Telas
+
+| Claro | Escuro |
+|---|---|
+| <img src="docs/telas/claro/editor.png" alt="Editor de laudo no tema claro" width="430"> | <img src="docs/telas/escuro/editor.png" alt="Editor de laudo no tema escuro" width="430"> |
+| <img src="docs/telas/claro/revisar-e-emitir.png" alt="Revisar e emitir no tema claro" width="430"> | <img src="docs/telas/escuro/revisar-e-emitir.png" alt="Revisar e emitir no tema escuro" width="430"> |
+| <img src="docs/telas/claro/laudos.png" alt="Lista de laudos no tema claro" width="430"> | <img src="docs/telas/escuro/laudos.png" alt="Lista de laudos no tema escuro" width="430"> |
+
+Telas com dados fictícios.
 
 ## Baixar
 
