@@ -11,222 +11,396 @@
   <meta name="theme-color" content="#14264A">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <style>
-    :root {
-      --fundo: #F5F8FC; --painel: #FFFFFF; --papel: #EDF2F8; --linha: #DCE5F1; --texto: #14264A; --suave: #4A5F80;
-      --apoio: #2E5F9E; --navy: #14264A; --laranja: #EA9A13; --luz1: #03E7FC; --luz2: #0183FB;
-      --raio: 14px;
-      --serifa: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Carlito, Calibri, Lato, "Helvetica Neue", sans-serif;
-      color-scheme: light;
-    }
-    :root[data-tema="escuro"] {
-      --fundo: #0C1527; --painel: #14213A; --papel: #101B31; --linha: #24324D; --texto: #E8EEF7; --suave: #A3B3CC;
-      --apoio: #8FB4E6; color-scheme: dark;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; transition: background .25s ease, color .25s ease; }
-    a { color: inherit; }
-    .largura { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-    header { padding: 18px 0; }
-    header .largura { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serifa); font-weight: 700; font-size: 22px; }
-    .logo img { width: 34px; height: 34px; display: block; }
-    nav { display: flex; align-items: center; gap: 22px; }
-    nav a { color: var(--suave); text-decoration: none; font-size: 15px; }
-    nav a:hover { color: var(--texto); }
-    .tema { display: inline-flex; border: 1px solid var(--linha); border-radius: 999px; padding: 3px; background: var(--painel); }
-    .tema button { font: 600 13px var(--sans); border: 0; background: transparent; color: var(--suave); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
-    .tema button[aria-pressed="true"] { background: var(--navy); color: #FFFFFF; }
-    :root[data-tema="escuro"] .tema button[aria-pressed="true"] { background: #E8EEF7; color: #14264A; }
-    .tema button:focus-visible, .botao:focus-visible, nav a:focus-visible { outline: 3px solid var(--luz2); outline-offset: 2px; }
-    .hero { text-align: center; padding: 52px 0 24px; }
-    .marcador { width: 56px; height: 5px; border-radius: 3px; background: var(--laranja); margin: 0 auto 22px; }
-    .hero h1 { font-family: var(--serifa); font-weight: 700; font-size: clamp(36px, 6vw, 62px); line-height: 1.07; letter-spacing: -0.01em; margin: 0 0 18px; }
-    .hero h1 span { background: linear-gradient(90deg, var(--luz1), var(--luz2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero p { color: var(--suave); font-size: clamp(17px, 2.2vw, 20px); max-width: 720px; margin: 0 auto 30px; }
-    .botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .botao { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 16px; transition: transform .15s ease; }
-    .botao:hover { transform: translateY(-1px); }
-    .botao.principal { background: var(--navy); color: #FFFFFF; box-shadow: 0 12px 30px -12px rgba(20,38,74,.55); }
-    :root[data-tema="escuro"] .botao.principal { background: linear-gradient(135deg, var(--luz1), var(--luz2)); color: #0C1527; }
-    .botao.principal[aria-disabled="true"] { opacity: .55; cursor: default; transform: none; }
-    .botao.secundario { border: 1px solid var(--linha); color: var(--texto); background: var(--painel); }
-    .nota { color: var(--suave); font-size: 14px; margin-top: 14px; }
-    .moldura { margin: 48px auto 0; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); box-shadow: 0 40px 90px -36px rgba(20,38,74,.45); background: var(--painel); }
-    .moldura .barra { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--linha); font-size: 13px; color: var(--suave); }
-    .moldura .barra img { width: 18px; height: 18px; }
-    .moldura img.tela-img { display: block; width: 100%; height: auto; }
-    section { padding: 80px 0 0; }
-    h2 { font-family: var(--serifa); font-weight: 700; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.15; margin: 0 0 12px; }
-    .rotulo { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--apoio); margin-bottom: 10px; }
-    .sub { color: var(--suave); max-width: 720px; margin: 0 0 32px; font-size: 17px; }
-    .passos, .grade, .instalar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .cartao { background: var(--painel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 22px; }
-    .cartao .n { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: rgba(1,131,251,.12); color: var(--luz2); margin-bottom: 14px; }
-    .cartao h3 { margin: 0 0 6px; font-size: 17px; }
-    .cartao p { margin: 0; color: var(--suave); font-size: 15px; }
-    .tela { display: grid; grid-template-columns: 1fr 1.6fr; gap: 36px; align-items: center; margin-top: 56px; }
-    .tela.inversa { grid-template-columns: 1.6fr 1fr; }
-    .tela.inversa .texto { order: 2; }
-    .tela img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--linha); display: block; box-shadow: 0 24px 60px -30px rgba(20,38,74,.45); background: var(--painel); }
-    .tela h3 { font-family: var(--serifa); font-size: 24px; margin: 0 0 10px; }
-    .tela p { color: var(--suave); margin: 0; }
-    .lado { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .lado figure { margin: 0; }
-    .lado img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--linha); display: block; box-shadow: 0 24px 60px -30px rgba(20,38,74,.45); }
-    .lado figcaption { margin-top: 10px; font-size: 14px; color: var(--suave); text-align: center; }
-    .seguranca { background: var(--navy); color: #FFFFFF; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; align-items: center; }
-    .seguranca h2 { color: #FFFFFF; }
-    .seguranca p, .seguranca li { color: #C8D8EE; }
-    .seguranca ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
-    .seguranca img { width: 140px; height: 140px; }
-    code { font: 13.5px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--papel); border: 1px solid var(--linha); border-radius: 6px; padding: 2px 6px; }
-    footer.largura { padding-bottom: 44px; margin-top: 96px; color: var(--suave); font-size: 14px; text-align: center; }
-    footer .linha-topo { border-top: 1px solid var(--linha); padding-top: 34px; display: grid; gap: 12px; justify-items: center; }
-    .feito { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; text-decoration: none; color: var(--suave); }
-    .feito img { height: 34px; width: auto; display: block; }
-    .feito strong { color: var(--texto); font-family: var(--serifa); font-size: 17px; }
-    @media (max-width: 860px) {
-      .tela, .tela.inversa, .seguranca { grid-template-columns: 1fr; gap: 18px; }
-      .tela.inversa .texto { order: 0; }
-      .lado { grid-template-columns: 1fr; }
-      nav a { display: none; }
-      .seguranca { padding: 28px; }
-    }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } body, .botao { transition: none; } }
-  </style>
   <script>
-    // Tema: segue o sistema, ou a escolha salva neste navegador.
     (function () {
       var salvo = null;
       try { salvo = localStorage.getItem('lumen-tema'); } catch (e) {}
       var escuro = salvo ? salvo === 'escuro' : window.matchMedia('(prefers-color-scheme: dark)').matches;
       document.documentElement.setAttribute('data-tema', escuro ? 'escuro' : 'claro');
+      document.documentElement.classList.add('js');
     })();
   </script>
+  <style>
+    :root {
+      --fundo: #F5F8FC; --fundo2: #EDF2F8; --painel: #FFFFFF; --linha: #DCE5F1; --texto: #14264A; --suave: #4A5F80;
+      --apoio: #2E5F9E; --navy: #14264A; --laranja: #EA9A13; --luz1: #03E7FC; --luz2: #0183FB;
+      --sombra: 0 30px 80px -40px rgba(20,38,74,.45);
+      --raio: 16px;
+      --serifa: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Carlito, Calibri, Lato, "Helvetica Neue", sans-serif;
+      --ease: cubic-bezier(.2,.7,.2,1);
+      color-scheme: light;
+    }
+    :root[data-tema="escuro"] {
+      --fundo: #0B1424; --fundo2: #0F1B31; --painel: #13203A; --linha: #24324D; --texto: #E8EEF7; --suave: #A3B3CC;
+      --apoio: #8FB4E6; --sombra: 0 30px 80px -40px rgba(0,0,0,.8); color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: background .4s var(--ease), color .4s var(--ease); }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    .largura { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    h1, h2, h3 { font-family: var(--serifa); font-weight: 700; margin: 0; }
+    h2 { font-size: clamp(30px, 4vw, 46px); line-height: 1.1; }
+    .rotulo { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--apoio); margin-bottom: 14px; }
+    .rotulo::before { content: ""; width: 22px; height: 3px; border-radius: 2px; background: var(--laranja); }
+    .sub { color: var(--suave); max-width: 680px; font-size: 18px; margin: 14px 0 0; }
+
+    /* Barra de progresso da leitura */
+    .progresso { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; background: linear-gradient(90deg, var(--luz1), var(--luz2)); transform-origin: 0 50%; transform: scaleX(0); }
+
+    /* Cabeçalho fixo com vidro */
+    header { position: sticky; top: 0; z-index: 50; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
+    header.rolou { background: color-mix(in srgb, var(--fundo) 78%, transparent); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); box-shadow: 0 1px 0 var(--linha); }
+    header .largura { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serifa); font-weight: 700; font-size: 22px; }
+    .logo img { width: 34px; height: 34px; }
+    nav { display: flex; align-items: center; gap: 6px; }
+    nav a { color: var(--suave); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 10px; transition: color .2s, background .2s; }
+    nav a:hover { color: var(--texto); }
+    nav a.ativo { color: var(--texto); background: color-mix(in srgb, var(--luz2) 12%, transparent); }
+    .tema { display: inline-flex; border: 1px solid var(--linha); border-radius: 999px; padding: 3px; background: var(--painel); margin-left: 8px; position: relative; }
+    .tema button { position: relative; z-index: 1; font: 600 13px var(--sans); border: 0; background: transparent; color: var(--suave); padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: color .3s; }
+    .tema button[aria-pressed="true"] { color: #FFFFFF; }
+    .tema .pilula { position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--navy); transition: transform .35s var(--ease); }
+    :root[data-tema="escuro"] .tema .pilula { transform: translateX(100%); background: var(--luz2); }
+    .cta-topo { margin-left: 8px; }
+    :focus-visible { outline: 3px solid var(--luz2); outline-offset: 3px; border-radius: 6px; }
+
+    /* Botões */
+    .botao { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 16px; border: 0; cursor: pointer; transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+    .botao:hover { transform: translateY(-2px); }
+    .botao.principal { background: var(--navy); color: #FFFFFF; box-shadow: 0 14px 30px -14px rgba(20,38,74,.7); }
+    :root[data-tema="escuro"] .botao.principal { background: linear-gradient(135deg, var(--luz1), var(--luz2)); color: #0B1424; box-shadow: 0 14px 34px -12px rgba(1,131,251,.6); }
+    .botao.secundario { background: var(--painel); color: var(--texto); box-shadow: inset 0 0 0 1px var(--linha); }
+    .botao.pequeno { padding: 9px 14px; font-size: 14px; border-radius: 10px; }
+    .botao svg { width: 18px; height: 18px; }
+
+    /* Hero */
+    .hero { position: relative; padding: 72px 0 40px; text-align: center; isolation: isolate; }
+    .hero .brilho { position: absolute; inset: -120px 0 auto 0; height: 720px; z-index: -1; pointer-events: none;
+      background: radial-gradient(600px 340px at 50% 30%, color-mix(in srgb, var(--luz1) 26%, transparent), transparent 70%),
+                  radial-gradient(420px 260px at 72% 14%, color-mix(in srgb, var(--laranja) 18%, transparent), transparent 70%); }
+    .simbolo-hero { width: 104px; height: 104px; margin: 0 auto 26px; display: block; }
+    .simbolo-hero .lumen { transform-origin: 60px 60px; animation: respira 4.5s var(--ease) infinite; }
+    .simbolo-hero .feixe { animation: feixe 4.5s var(--ease) infinite; }
+    @keyframes respira { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(3,231,252,0)); } 50% { transform: scale(1.06); filter: drop-shadow(0 0 10px rgba(3,231,252,.55)); } }
+    @keyframes feixe { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+    .hero h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.03; letter-spacing: -0.015em; }
+    .hero h1 .luz { background: linear-gradient(90deg, var(--luz1), var(--luz2), var(--luz1)); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: varre 6s linear infinite; }
+    @keyframes varre { to { background-position: 200% 0; } }
+    .hero p.lead { color: var(--suave); font-size: clamp(18px, 2.3vw, 21px); max-width: 720px; margin: 22px auto 32px; }
+    .botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .selos { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+    .selo { font-size: 13px; color: var(--suave); background: var(--painel); border: 1px solid var(--linha); border-radius: 999px; padding: 5px 12px; display: inline-flex; gap: 6px; align-items: center; }
+    .selo b { width: 7px; height: 7px; border-radius: 50%; background: var(--luz2); }
+
+    /* Vitrine com inclinação ligada à rolagem */
+    .vitrine { perspective: 1600px; margin-top: 56px; }
+    .moldura { position: relative; border-radius: var(--raio); overflow: hidden; background: var(--painel); box-shadow: var(--sombra), 0 0 0 1px var(--linha); transform: rotateX(calc(var(--inclina, 1) * 14deg)) scale(calc(1 - var(--inclina, 1) * .04)); transform-origin: 50% 0; will-change: transform; }
+    .moldura .barra { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--linha); font-size: 13px; color: var(--suave); }
+    .moldura .barra img { width: 18px; height: 18px; }
+    .duplas { position: relative; display: grid; }
+    .duplas img { grid-area: 1 / 1; width: 100%; height: auto; display: block; transition: opacity .55s var(--ease); }
+    .duplas img.escuro { opacity: 0; }
+    :root[data-tema="escuro"] .duplas img.escuro { opacity: 1; }
+    :root[data-tema="escuro"] .duplas img.claro { opacity: 0; }
+
+    /* Números */
+    .numeros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 64px; }
+    .numero { background: var(--painel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 22px; text-align: left; }
+    .numero strong { display: block; font-family: var(--serifa); font-size: 40px; line-height: 1; color: var(--texto); }
+    .numero span { color: var(--suave); font-size: 14px; }
+
+    section.largura { padding-top: 120px; }
+    #contato.largura { padding-top: 140px; }
+
+    /* História com rolagem: passos à esquerda, tela fixa à direita */
+    .historia { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 56px; margin-top: 40px; }
+    .passos { display: grid; gap: 22vh; padding: 10vh 0 30vh; }
+    .passo { opacity: .35; transition: opacity .4s var(--ease), transform .4s var(--ease); transform: translateX(-6px); }
+    .passo.ativo { opacity: 1; transform: none; }
+    .passo .n { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: color-mix(in srgb, var(--luz2) 14%, transparent); color: var(--luz2); font-weight: 700; margin-bottom: 14px; }
+    .passo h3 { font-size: 28px; margin-bottom: 10px; }
+    .passo p { color: var(--suave); font-size: 17px; margin: 0; }
+    .palco { position: sticky; top: 110px; align-self: start; }
+    .palco .moldura { transform: none; }
+    .palco .cena { position: absolute; inset: 0; opacity: 0; transform: scale(.985); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+    .palco .cena.visivel { opacity: 1; transform: none; position: relative; }
+    .palco .cena:not(.visivel) { pointer-events: none; }
+    .palco .area { position: relative; }
+
+    /* Comparador claro e escuro */
+    .comparador { position: relative; margin-top: 40px; border-radius: var(--raio); overflow: hidden; box-shadow: var(--sombra), 0 0 0 1px var(--linha); user-select: none; touch-action: pan-y; --pos: 50%; }
+    .comparador img { display: block; width: 100%; height: auto; pointer-events: none; }
+    .comparador .por-cima { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+    .comparador .alca { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: #FFFFFF; box-shadow: 0 0 0 1px rgba(20,38,74,.2); transform: translateX(-1px); }
+    .comparador .alca span { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 6px 20px rgba(20,38,74,.35); display: grid; place-items: center; color: #14264A; font-weight: 700; }
+    .comparador .etiqueta { position: absolute; top: 14px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: rgba(20,38,74,.75); color: #FFFFFF; }
+    .comparador .etiqueta.e { left: 14px; } .comparador .etiqueta.d { right: 14px; }
+    .comparador input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+
+    /* Galeria em abas */
+    .abas { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 34px; }
+    .abas button { font: 600 14px var(--sans); border: 1px solid var(--linha); background: var(--painel); color: var(--suave); padding: 9px 14px; border-radius: 999px; cursor: pointer; transition: all .25s var(--ease); }
+    .abas button[aria-selected="true"] { background: var(--navy); color: #FFFFFF; border-color: var(--navy); }
+    :root[data-tema="escuro"] .abas button[aria-selected="true"] { background: var(--luz2); border-color: var(--luz2); color: #0B1424; }
+    .painel-aba { margin-top: 22px; }
+    .painel-aba p { color: var(--suave); max-width: 720px; margin: 0 0 18px; }
+
+    /* Cartões com brilho que segue o mouse */
+    .grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+    .cartao { position: relative; background: var(--painel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; overflow: hidden; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .cartao::before { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, -200px) var(--my, -200px), color-mix(in srgb, var(--luz1) 16%, transparent), transparent 60%); pointer-events: none; }
+    .cartao:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+    .cartao .icone { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--luz2) 12%, transparent); color: var(--luz2); margin-bottom: 14px; }
+    .cartao .icone svg { width: 22px; height: 22px; }
+    .cartao h3 { font-size: 19px; margin-bottom: 6px; }
+    .cartao p { margin: 0; color: var(--suave); font-size: 15px; }
+
+    /* Segurança */
+    .seguranca { position: relative; overflow: hidden; background: #14264A; color: #FFFFFF; border-radius: 24px; padding: 56px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
+    .seguranca::after { content: ""; position: absolute; width: 520px; height: 520px; right: -160px; top: -200px; background: radial-gradient(circle, rgba(3,231,252,.22), transparent 65%); pointer-events: none; }
+    .seguranca h2 { color: #FFFFFF; }
+    .seguranca p { color: #C8D8EE; }
+    .seguranca ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .seguranca li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; color: #DCE7F7; }
+    .seguranca li svg { width: 24px; height: 24px; color: #03E7FC; }
+    .seguranca .simbolo { width: 120px; height: 120px; margin-bottom: 22px; }
+
+    /* Perguntas */
+    .perguntas { margin-top: 34px; display: grid; gap: 10px; max-width: 860px; }
+    details { background: var(--painel); border: 1px solid var(--linha); border-radius: 14px; padding: 0 22px; transition: box-shadow .3s; }
+    details[open] { box-shadow: var(--sombra); }
+    summary { cursor: pointer; list-style: none; padding: 18px 0; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 22px; color: var(--luz2); transition: transform .3s var(--ease); }
+    details[open] summary::after { transform: rotate(45deg); }
+    details .resposta { color: var(--suave); padding: 0 0 20px; }
+
+    /* Chamada final */
+    .final { text-align: center; background: linear-gradient(160deg, var(--fundo2), var(--fundo)); border: 1px solid var(--linha); border-radius: 28px; padding: 72px 24px; position: relative; overflow: hidden; }
+    .final .simbolo-hero { width: 84px; height: 84px; }
+    .final p { color: var(--suave); max-width: 620px; margin: 16px auto 28px; font-size: 18px; }
+
+    footer.largura { padding: 0 20px 44px; margin-top: 96px; color: var(--suave); font-size: 14px; text-align: center; }
+    footer .linha-topo { border-top: 1px solid var(--linha); padding-top: 34px; display: grid; gap: 10px; justify-items: center; }
+    .feito { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; text-decoration: none; color: var(--suave); }
+    .feito img { height: 34px; width: auto; }
+    .feito strong { color: var(--texto); font-family: var(--serifa); font-size: 17px; }
+
+    /* Revelação na rolagem */
+    .js .revela { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+    .js .revela.visto { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      nav a { display: none; }
+      .numeros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .historia { grid-template-columns: 1fr; }
+      .passos { gap: 32px; padding: 0; }
+      .passo { opacity: 1; transform: none; }
+      .palco { display: none; }
+      .passo .tela-movel { display: block; margin-top: 16px; }
+      .grade { grid-template-columns: 1fr; }
+      .seguranca { grid-template-columns: 1fr; padding: 32px; }
+      section.largura { padding-top: 88px; }
+      #contato.largura { padding-top: 100px; }
+    }
+    @media (min-width: 901px) { .passo .tela-movel { display: none; } }
+    .tela-movel img { width: 100%; border-radius: 12px; border: 1px solid var(--linha); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .revela { opacity: 1; transform: none; }
+      .moldura { transform: none !important; }
+    }
+  </style>
 </head>
 <body>
-  <header>
+  <div class="progresso" id="progresso" aria-hidden="true"></div>
+
+  <header id="topo">
     <div class="largura">
       <a class="logo" href="#"><img src="icone.png" alt="">Lúmen</a>
       <nav aria-label="Seções">
         <a href="#como">Como funciona</a>
         <a href="#telas">Telas</a>
         <a href="#seguranca">Segurança</a>
-        <a href="#baixar-secao">Baixar</a>
+        <a href="#perguntas">Perguntas</a>
         <div class="tema" role="group" aria-label="Tema da página e das telas">
+          <span class="pilula" aria-hidden="true"></span>
           <button type="button" data-tema-botao="claro">Claro</button>
           <button type="button" data-tema-botao="escuro">Escuro</button>
         </div>
+        <a class="botao principal pequeno cta-topo" href="#contato">Quero o Lúmen</a>
       </nav>
     </div>
   </header>
 
   <main>
     <div class="hero largura">
-      <div class="marcador"></div>
-      <h1>Do exame ao laudo emitido.<br><span>Com a luz certa.</span></h1>
-      <p>O Lúmen é o sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech: modelos de texto, imagens da câmera, revisão do PDF e emissão arquivada, com os dados cifrados no computador da clínica.</p>
-      <div class="botoes">
-        <a class="botao principal" id="baixar" href="#baixar-secao" aria-disabled="true">Em breve para Windows</a>
-        <a class="botao secundario" href="#como">Como funciona</a>
+      <div class="brilho" aria-hidden="true"></div>
+      <svg class="simbolo-hero revela" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><linearGradient id="g-hero" x1="0" y1="36" x2="0" y2="84" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#03E7FC"/><stop offset="1" stop-color="#0183FB"/></linearGradient></defs>
+        <path d="M97.31 32.56 L102.4 35.5 L102.4 84.5 L60 109 L17.6 84.5 L17.6 35.5 L60 11 L65.09 13.94" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        <line class="feixe" x1="78.06" y1="21.44" x2="84.34" y2="25.06" stroke="#EA9A13" stroke-width="10" stroke-linecap="round"/>
+        <g class="lumen"><circle cx="60" cy="60" r="24" fill="url(#g-hero)"/><path d="M46 57 A15 15 0 0 1 57 46" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".9"/></g>
+      </svg>
+      <h1 class="revela" style="--i:1">Do exame ao laudo emitido.<br><span class="luz">Com a luz certa.</span></h1>
+      <p class="lead revela" style="--i:2">O Lúmen é o sistema de laudos de histeroscopia e videolaparoscopia da Hallen Tech: modelos de texto, imagens da câmera, revisão do PDF e emissão arquivada, com os dados cifrados no computador da clínica.</p>
+      <div class="botoes revela" style="--i:3">
+        <a class="botao principal" id="baixar" href="#contato" data-em-breve="true">Quero o Lúmen na minha clínica</a>
+        <a class="botao secundario" href="#como">Ver como funciona</a>
       </div>
-      <div class="nota" id="versao">Windows 11 primeiro, macOS em seguida. Para implantar na sua clínica, fale com a Hallen Tech.</div>
-      <div class="moldura">
-        <div class="barra"><img src="favicon.png" alt="">Lúmen</div>
-        <img class="tela-img" data-tela="inicio" alt="Tela Início com os números do período, a fila de trabalho e o estado do backup">
+      <div class="selos revela" style="--i:4" id="versao">
+        <span class="selo"><b></b>Windows 11 e macOS</span>
+        <span class="selo"><b></b>Funciona sem internet</span>
+        <span class="selo"><b></b>Feito para a LGPD</span>
+      </div>
+
+      <div class="vitrine revela" style="--i:5">
+        <div class="moldura" id="vitrine">
+          <div class="barra"><img src="favicon.png" alt="">Lúmen</div>
+          <div class="duplas">
+            <img class="claro" src="telas/claro/inicio.png" alt="Tela Início no tema claro com os números do período, a fila de trabalho e o estado do backup">
+            <img class="escuro" src="telas/escuro/inicio.png" alt="Tela Início no tema escuro" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+
+      <div class="numeros">
+        <div class="numero revela" style="--i:0"><strong data-conta="2">0</strong><span>tipos de exame: histeroscopia e videolaparoscopia</span></div>
+        <div class="numero revela" style="--i:1"><strong data-conta="4">0</strong><span>papéis de acesso, conteúdo clínico só para médicos</span></div>
+        <div class="numero revela" style="--i:2"><strong data-conta="10" data-sufixo=" min">0</strong><span>sem uso e a tela bloqueia sozinha</span></div>
+        <div class="numero revela" style="--i:3"><strong data-conta="200" data-sufixo="%">0</strong><span>de tamanho de texto, sem cortar nada</span></div>
       </div>
     </div>
 
     <section id="como" class="largura">
-      <span class="rotulo">Como funciona</span>
-      <h2>Um laudo por vez, sem retrabalho</h2>
-      <p class="sub">O médico escreve, revisa e emite. A secretária cuida do cadastro. O administrador cuida da clínica e do backup. Cada um vê só o que é seu.</p>
-      <div class="passos">
-        <div class="cartao"><div class="n">1</div><h3>Abra o laudo</h3><p>Paciente, médico e tipo de exame. Escolha um modelo da clínica ou um modelo seu para começar com o texto pronto.</p></div>
-        <div class="cartao"><div class="n">2</div><h3>Traga as imagens</h3><p>Importe da câmera de vídeo (MedCam) ou arraste os arquivos. Ordene, descreva e escolha as que vão para o PDF.</p></div>
-        <div class="cartao"><div class="n">3</div><h3>Revise o PDF</h3><p>Veja a página exatamente como vai sair, no layout da clínica, antes de emitir.</p></div>
-        <div class="cartao"><div class="n">4</div><h3>Emita</h3><p>O PDF é arquivado com uma impressão digital (hash). Reimpressões e retificações ficam registradas.</p></div>
+      <span class="rotulo revela">Como funciona</span>
+      <h2 class="revela" style="--i:1">Um laudo por vez, sem retrabalho</h2>
+      <p class="sub revela" style="--i:2">Role a página: cada passo mostra a tela correspondente.</p>
+      <div class="historia">
+        <div class="passos">
+          <article class="passo" data-cena="0">
+            <span class="n">1</span><h3>Abra o dia pelo Início</h3>
+            <p>Rascunhos, laudos aguardando emissão e o estado do backup, com a comparação do período anterior.</p>
+            <div class="tela-movel"><img data-tela="inicio" alt="Tela Início" loading="lazy"></div>
+          </article>
+          <article class="passo" data-cena="1">
+            <span class="n">2</span><h3>Encontre o laudo</h3>
+            <p>Busca por paciente e filtros por situação, tipo e período. O resumo do laudo aparece ao lado.</p>
+            <div class="tela-movel"><img data-tela="laudos" alt="Lista de laudos" loading="lazy"></div>
+          </article>
+          <article class="passo" data-cena="2">
+            <span class="n">3</span><h3>Escreva com modelos e imagens</h3>
+            <p>Seções de cada exame, modelos da clínica ou seus, salvamento automático e as imagens da câmera ao lado.</p>
+            <div class="tela-movel"><img data-tela="editor" alt="Editor de laudo" loading="lazy"></div>
+          </article>
+          <article class="passo" data-cena="3">
+            <span class="n">4</span><h3>Revise e emita</h3>
+            <p>O PDF final na tela, conferido item a item. Emitido, ele é arquivado com uma impressão digital e não muda mais.</p>
+            <div class="tela-movel"><img data-tela="revisar-e-emitir" alt="Revisar e emitir" loading="lazy"></div>
+          </article>
+        </div>
+        <div class="palco" aria-hidden="true">
+          <div class="moldura">
+            <div class="barra"><img src="favicon.png" alt="">Lúmen</div>
+            <div class="area">
+              <img class="cena visivel" data-tela="inicio" alt="">
+              <img class="cena" data-tela="laudos" alt="">
+              <img class="cena" data-tela="editor" alt="">
+              <img class="cena" data-tela="revisar-e-emitir" alt="">
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="telas" class="largura">
-      <span class="rotulo">Por dentro</span>
-      <h2>Feito para o dia a dia do consultório</h2>
-      <p class="sub">Use o seletor Claro e Escuro no topo: as telas abaixo mudam junto. Todas com dados fictícios.</p>
-
-      <div class="tela">
-        <div class="texto"><h3>Início</h3><p>Laudos do período comparados com o anterior, rascunhos e o que está aguardando emissão, sem expor conteúdo clínico a quem não é médico.</p></div>
-        <img data-tela="inicio" alt="Tela Início com os números do período e a fila de trabalho" loading="lazy">
+      <span class="rotulo revela">Claro e escuro</span>
+      <h2 class="revela" style="--i:1">Confortável de manhã e no fim do plantão</h2>
+      <p class="sub revela" style="--i:2">Arraste para comparar. O Lúmen acompanha o tema do Windows e do macOS, ou fica no que você escolher.</p>
+      <div class="comparador revela" style="--i:3" id="comparador">
+        <img src="telas/claro/editor.png" alt="Editor de laudo no tema claro" loading="lazy">
+        <div class="por-cima"><img src="telas/escuro/editor.png" alt="Editor de laudo no tema escuro" loading="lazy"></div>
+        <div class="alca" aria-hidden="true"><span>↔</span></div>
+        <span class="etiqueta e" aria-hidden="true">Claro</span><span class="etiqueta d" aria-hidden="true">Escuro</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Comparar tema claro e escuro">
       </div>
 
-      <div class="tela inversa">
-        <div class="texto"><h3>Laudos</h3><p>Busca por paciente, filtros por situação, tipo e período, e o caminho de cada laudo do rascunho à emissão.</p></div>
-        <img data-tela="laudos" alt="Lista de laudos com filtros por situação, tipo e período" loading="lazy">
+      <div class="abas revela" role="tablist" aria-label="Outras telas">
+        <button role="tab" aria-selected="true" aria-controls="aba-painel" data-aba="backup">Backup</button>
+        <button role="tab" aria-selected="false" aria-controls="aba-painel" data-aba="entrada">Entrada</button>
+        <button role="tab" aria-selected="false" aria-controls="aba-painel" data-aba="laudos">Laudos</button>
       </div>
-
-      <div class="tela">
-        <div class="texto"><h3>Editor de laudo</h3><p>Seções de histeroscopia e videolaparoscopia, modelos com um clique, salvamento automático e a galeria de imagens ao lado.</p></div>
-        <img data-tela="editor" alt="Editor de laudo de histeroscopia com modelos e galeria de imagens" loading="lazy">
-      </div>
-
-      <div class="tela inversa">
-        <div class="texto"><h3>Revisar e emitir</h3><p>O PDF final na tela, com a identidade da clínica. Emitido, ele é arquivado e não muda; correções viram uma retificação.</p></div>
-        <img data-tela="revisar-e-emitir" alt="Revisão do PDF do laudo antes da emissão" loading="lazy">
-      </div>
-
-      <div class="tela">
-        <div class="texto"><h3>Backup automático</h3><p>Cópias cifradas em outro disco, verificadas, com restauração guiada. O último backup aparece no Início.</p></div>
-        <img data-tela="backup" alt="Configurações de backup com o último backup verificado" loading="lazy">
-      </div>
-    </section>
-
-    <section id="claro-escuro" class="largura">
-      <span class="rotulo">Claro e escuro</span>
-      <h2>Confortável de manhã e no fim do plantão</h2>
-      <p class="sub">O Lúmen acompanha o tema do Windows e do macOS, ou fica no que você escolher. As cores foram ajustadas para o contraste de leitura nos dois.</p>
-      <div class="lado">
-        <figure><img onerror="this.closest('section').style.display='none'" src="telas/claro/editor.png" alt="Editor de laudo no tema claro" loading="lazy"><figcaption>Tema claro</figcaption></figure>
-        <figure><img src="telas/escuro/editor.png" alt="Editor de laudo no tema escuro" loading="lazy"><figcaption>Tema escuro</figcaption></figure>
-      </div>
-    </section>
-
-    <section id="seguranca" class="largura">
-      <div class="seguranca">
-        <div><img src="simbolo-negativo.svg" alt=""><h2>Dados de saúde tratados como dados de saúde</h2><p>Pensado para a LGPD desde o começo.</p></div>
-        <ul>
-          <li>Banco de dados cifrado no computador da clínica; nada vai para a nuvem sem você decidir.</li>
-          <li>Login por usuário, bloqueio após 10 minutos sem uso e papéis separados: médico, secretária, administrador e suporte.</li>
-          <li>Conteúdo clínico só para médicos.</li>
-          <li>Auditoria encadeada de quem fez o quê, verificada todos os dias.</li>
-          <li>Backup cifrado, exportação dos dados do paciente quando ele pedir e importação do sistema anterior.</li>
-        </ul>
+      <div class="painel-aba revela" id="aba-painel" role="tabpanel">
+        <p id="aba-texto">Cópias cifradas em outro disco, verificadas, com restauração guiada. O último backup aparece no Início.</p>
+        <div class="moldura" style="transform:none">
+          <div class="barra"><img src="favicon.png" alt="">Lúmen</div>
+          <img id="aba-img" data-tela="backup" alt="Configurações de backup" style="display:block;width:100%" loading="lazy">
+        </div>
       </div>
     </section>
 
     <section class="largura">
-      <h2>E mais</h2>
-      <p class="sub">O que faz diferença na rotina.</p>
+      <span class="rotulo revela">E mais</span>
+      <h2 class="revela" style="--i:1">O que faz diferença na rotina</h2>
       <div class="grade">
-        <div class="cartao"><h3>Modelos da clínica e pessoais</h3><p>Textos prontos por tipo de exame, com busca e o modelo preferido de cada médico.</p></div>
-        <div class="cartao"><h3>Imagens da câmera</h3><p>Importação do MedCam somente leitura e arraste de arquivos do Explorer ou do Finder.</p></div>
-        <div class="cartao"><h3>Atalhos de teclado</h3><p>Ctrl ou ⌘ para trocar de tela, abrir um laudo novo, buscar e emitir, sem tirar a mão do teclado.</p></div>
-        <div class="cartao"><h3>Acessível</h3><p>Texto até 200%, contraste de leitura, navegação por teclado e rótulos para leitor de tela.</p></div>
-        <div class="cartao"><h3>Sistema anterior</h3><p>Importação dos laudos, pacientes e imagens do sistema antigo, com simulação antes de gravar.</p></div>
-        <div class="cartao"><h3>Funciona sem internet</h3><p>Tudo roda no computador da clínica, sem depender de conexão para laudar.</p></div>
+        <div class="cartao revela" style="--i:0"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 10h16M4 15h10M4 20h7"/></svg></div><h3>Modelos da clínica e seus</h3><p>Textos prontos por tipo de exame, com busca e o modelo preferido de cada médico.</p></div>
+        <div class="cartao revela" style="--i:1"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="4"/><path d="M4 7h3l2-3h6l2 3h3v13H4z"/></svg></div><h3>Imagens da câmera</h3><p>Importação do MedCam somente leitura e arraste de arquivos do Explorer ou do Finder.</p></div>
+        <div class="cartao revela" style="--i:2"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg></div><h3>Atalhos de teclado</h3><p>Ctrl ou ⌘ para trocar de tela, abrir um laudo novo, buscar e emitir.</p></div>
+        <div class="cartao revela" style="--i:0"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div><h3>Acessível</h3><p>Texto até 200%, contraste de leitura, navegação por teclado e rótulos para leitor de tela.</p></div>
+        <div class="cartao revela" style="--i:1"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Sistema anterior</h3><p>Importação de laudos, pacientes e imagens do sistema antigo, com simulação antes de gravar.</p></div>
+        <div class="cartao revela" style="--i:2"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><h3>Início com números</h3><p>Laudos do período, rascunhos e o que falta emitir, sem expor conteúdo clínico a quem não é médico.</p></div>
       </div>
     </section>
 
-    <section id="baixar-secao" class="largura">
-      <span class="rotulo">Baixar</span>
-      <h2>Em breve</h2>
-      <p class="sub" id="baixar-texto">A primeira versão pública para Windows 11 sai em breve, assinada pela Hallen Tech. O macOS vem em seguida. Enquanto isso, a implantação é acompanhada pela nossa equipe.</p>
-      <div class="instalar">
-        <div class="cartao"><div class="n">1</div><h3>Fale com a gente</h3><p><a href="mailto:contato@hallentech.com">contato@hallentech.com</a> ou WhatsApp (21) 99697-3923.</p></div>
-        <div class="cartao"><div class="n">2</div><h3>Implantação</h3><p>Instalamos no computador da clínica, importamos o sistema anterior e configuramos o backup.</p></div>
-        <div class="cartao"><div class="n">3</div><h3>Treinamento</h3><p>Uma sessão com médicos e secretaria para começar com segurança.</p></div>
+    <section id="seguranca" class="largura">
+      <div class="seguranca revela">
+        <div>
+          <svg class="simbolo" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="g-seg" x1="0" y1="36" x2="0" y2="84" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#03E7FC"/><stop offset="1" stop-color="#0183FB"/></linearGradient></defs><path d="M97.31 32.56 L102.4 35.5 L102.4 84.5 L60 109 L17.6 84.5 L17.6 35.5 L60 11 L65.09 13.94" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><line x1="78.06" y1="21.44" x2="84.34" y2="25.06" stroke="#EA9A13" stroke-width="10" stroke-linecap="round"/><circle cx="60" cy="60" r="24" fill="url(#g-seg)"/></svg>
+          <h2>Dados de saúde tratados como dados de saúde</h2>
+          <p>Pensado para a LGPD desde o começo.</p>
+        </div>
+        <ul>
+          <li class="revela" style="--i:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Banco de dados cifrado no computador da clínica; nada vai para a nuvem sem você decidir.</span></li>
+          <li class="revela" style="--i:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Login por usuário, bloqueio após 10 minutos sem uso e papéis separados.</span></li>
+          <li class="revela" style="--i:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Conteúdo clínico só para médicos.</span></li>
+          <li class="revela" style="--i:4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Auditoria encadeada de quem fez o quê, verificada todos os dias.</span></li>
+          <li class="revela" style="--i:5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Backup cifrado e exportação dos dados do paciente quando ele pedir.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="perguntas" class="largura">
+      <span class="rotulo revela">Perguntas</span>
+      <h2 class="revela" style="--i:1">Antes de começar</h2>
+      <div class="perguntas">
+        <details class="revela"><summary>Precisa de internet para laudar?</summary><div class="resposta">Não. Tudo roda no computador da clínica: cadastro, laudos, imagens, PDF e backup.</div></details>
+        <details class="revela" style="--i:1"><summary>Onde ficam os dados dos pacientes?</summary><div class="resposta">No computador da clínica, num banco de dados cifrado. As cópias de backup também saem cifradas, para o disco que você escolher.</div></details>
+        <details class="revela" style="--i:2"><summary>Dá para trazer os laudos do sistema que usamos hoje?</summary><div class="resposta">Sim, quando o sistema anterior é o da Hallen Tech: pacientes, médicos, laudos, imagens e modelos entram por uma importação com simulação, sem gravar nada antes da sua confirmação.</div></details>
+        <details class="revela" style="--i:3"><summary>Funciona com a câmera do consultório?</summary><div class="resposta">Importa as imagens do MedCam em modo somente leitura e aceita imagens arrastadas de qualquer pasta.</div></details>
+        <details class="revela" style="--i:4"><summary>Em quais computadores roda?</summary><div class="resposta">Windows 10 ou 11 de 64 bits e macOS. A primeira versão pública sai para Windows.</div></details>
+        <details class="revela" style="--i:5"><summary>Quanto custa?</summary><div class="resposta">Fale com a gente: a proposta depende do número de estações e da implantação.</div></details>
+      </div>
+    </section>
+
+    <section id="contato" class="largura">
+      <div class="final revela">
+        <svg class="simbolo-hero" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><linearGradient id="g-final" x1="0" y1="36" x2="0" y2="84" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#03E7FC"/><stop offset="1" stop-color="#0183FB"/></linearGradient></defs>
+          <path d="M97.31 32.56 L102.4 35.5 L102.4 84.5 L60 109 L17.6 84.5 L17.6 35.5 L60 11 L65.09 13.94" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <line class="feixe" x1="78.06" y1="21.44" x2="84.34" y2="25.06" stroke="#EA9A13" stroke-width="10" stroke-linecap="round"/>
+          <g class="lumen"><circle cx="60" cy="60" r="24" fill="url(#g-final)"/></g>
+        </svg>
+        <h2>Leve o Lúmen para a sua clínica</h2>
+        <p id="final-texto">A primeira versão pública para Windows sai em breve. Enquanto isso, a implantação é acompanhada pela nossa equipe: instalação, importação do sistema anterior, backup e treinamento.</p>
+        <div class="botoes">
+          <a class="botao principal" href="https://wa.me/5521996973923?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20L%C3%BAmen%20para%20a%20minha%20cl%C3%ADnica." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Conversar no WhatsApp</a>
+          <a class="botao secundario" href="mailto:contato@hallentech.com?subject=L%C3%BAmen%20na%20minha%20cl%C3%ADnica">contato@hallentech.com</a>
+        </div>
       </div>
     </section>
   </main>
@@ -234,51 +408,148 @@
   <footer class="largura">
     <div class="linha-topo">
       <a class="feito" href="https://hallentech.com">Lúmen, por <img src="hallen-tech.png" alt="Logo da Hallen Tech"><strong>Hallen Tech</strong></a>
-      <div>Os pacotes de cada versão ficarão em <a href="https://github.com/hallentech/lumen-releases/releases">github.com/hallentech/lumen-releases</a>.</div>
+      <div>Os pacotes de cada versão ficarão em <a href="https://github.com/hallentech/lumen-releases/releases">github.com/hallentech/lumen-releases</a>. Telas com dados fictícios.</div>
       <div>Hallen Consultoria Tecnológica Ltda. | CNPJ 45.106.125/0001-39 | Barra Mansa, RJ</div>
     </div>
   </footer>
 
   <script>
-    // Telas do tema atual: cada <img data-tela> aponta para telas/<tema>/<nome>.png.
-    function aplicarTema(tema) {
-      document.documentElement.setAttribute('data-tema', tema);
-      document.querySelectorAll('img[data-tela]').forEach(function (img) {
-        img.onerror = function () { img.style.display = 'none'; };
-        img.onload = function () { img.style.display = ''; };
-        img.src = 'telas/' + tema + '/' + img.getAttribute('data-tela') + '.png';
-      });
-      document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
-        b.setAttribute('aria-pressed', String(b.getAttribute('data-tema-botao') === tema));
-      });
-    }
-    document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var tema = b.getAttribute('data-tema-botao');
-        try { localStorage.setItem('lumen-tema', tema); } catch (e) {}
-        aplicarTema(tema);
-      });
-    });
-    aplicarTema(document.documentElement.getAttribute('data-tema'));
+    (function () {
+      var raiz = document.documentElement;
+      var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Download: quando houver uma release com o instalador do Windows, o botão passa a baixá-lo.
-    fetch('https://api.github.com/repos/hallentech/lumen-releases/releases/latest')
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-      .then(function (rel) {
-        var exe = (rel.assets || []).find(function (a) { return /\.exe$/i.test(a.name); });
-        if (!exe) return;
-        var botao = document.getElementById('baixar');
-        botao.href = exe.browser_download_url;
-        botao.removeAttribute('aria-disabled');
-        botao.textContent = 'Baixar para Windows';
-        var versao = String(rel.tag_name || '').replace(/^v/, '');
-        var mb = Math.round(exe.size / 1e6);
-        document.getElementById('versao').textContent = 'Versão ' + versao + ', ' + mb + ' MB. Para Windows 10 ou 11 de 64 bits.';
-      })
-      .catch(function () {});
-    document.getElementById('baixar').addEventListener('click', function (e) {
-      if (this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); document.getElementById('baixar-secao').scrollIntoView(); }
-    });
+      // Tema e telas.
+      function aplicarTema(tema) {
+        raiz.setAttribute('data-tema', tema);
+        document.querySelectorAll('img[data-tela]').forEach(function (img) {
+          img.src = 'telas/' + tema + '/' + img.getAttribute('data-tela') + '.png';
+        });
+        document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-tema-botao') === tema));
+        });
+      }
+      document.querySelectorAll('[data-tema-botao]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var tema = b.getAttribute('data-tema-botao');
+          try { localStorage.setItem('lumen-tema', tema); } catch (e) {}
+          aplicarTema(tema);
+        });
+      });
+      aplicarTema(raiz.getAttribute('data-tema'));
+
+      // Revelação na rolagem e contadores.
+      function contar(el) {
+        var alvo = Number(el.getAttribute('data-conta')), sufixo = el.getAttribute('data-sufixo') || '';
+        if (reduzir) { el.textContent = alvo + sufixo; return; }
+        var inicio = null;
+        function passo(t) {
+          if (!inicio) inicio = t;
+          var p = Math.min(1, (t - inicio) / 1200), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(alvo * e) + sufixo;
+          if (p < 1) requestAnimationFrame(passo);
+        }
+        requestAnimationFrame(passo);
+      }
+      var observador = new IntersectionObserver(function (itens) {
+        itens.forEach(function (it) {
+          if (!it.isIntersecting) return;
+          it.target.classList.add('visto');
+          it.target.querySelectorAll('[data-conta]').forEach(contar);
+          observador.unobserve(it.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.revela').forEach(function (el) { observador.observe(el); });
+
+      // Passos da história: o passo no meio da tela troca a cena fixa.
+      var cenas = document.querySelectorAll('.palco .cena');
+      var obsPasso = new IntersectionObserver(function (itens) {
+        itens.forEach(function (it) {
+          if (!it.isIntersecting) return;
+          document.querySelectorAll('.passo').forEach(function (p) { p.classList.toggle('ativo', p === it.target); });
+          var n = Number(it.target.getAttribute('data-cena'));
+          cenas.forEach(function (c, i) { c.classList.toggle('visivel', i === n); });
+        });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      document.querySelectorAll('.passo').forEach(function (p) { obsPasso.observe(p); });
+
+      // Rolagem: barra de progresso, cabeçalho de vidro, inclinação da vitrine e item ativo do menu.
+      var progresso = document.getElementById('progresso'), topo = document.getElementById('topo'), vitrine = document.getElementById('vitrine');
+      var secoes = ['como', 'telas', 'seguranca', 'perguntas'].map(function (id) { return document.getElementById(id); });
+      var links = document.querySelectorAll('nav a[href^="#"]');
+      var pendente = false;
+      function aoRolar() {
+        pendente = false;
+        var y = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
+        progresso.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+        topo.classList.toggle('rolou', y > 10);
+        if (!reduzir && vitrine) {
+          var r = vitrine.getBoundingClientRect();
+          var p = Math.min(1, Math.max(0, (r.top - window.innerHeight * 0.25) / (window.innerHeight * 0.6)));
+          vitrine.style.setProperty('--inclina', p.toFixed(3));
+        }
+        // Reserva do observador: numa rolagem rápida, revela o que já passou ou está na tela.
+        document.querySelectorAll('.revela:not(.visto)').forEach(function (el) {
+          if (el.getBoundingClientRect().top < window.innerHeight * 0.95) {
+            el.classList.add('visto');
+            el.querySelectorAll('[data-conta]').forEach(contar);
+            observador.unobserve(el);
+          }
+        });
+        var atual = null;
+        secoes.forEach(function (s) { if (s && s.getBoundingClientRect().top < window.innerHeight * 0.4) atual = s.id; });
+        links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('href') === '#' + atual); });
+      }
+      window.addEventListener('scroll', function () { if (!pendente) { pendente = true; requestAnimationFrame(aoRolar); } }, { passive: true });
+      aoRolar();
+
+      // Brilho dos cartões segue o mouse.
+      document.querySelectorAll('.cartao').forEach(function (c) {
+        c.addEventListener('pointermove', function (e) {
+          var r = c.getBoundingClientRect();
+          c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+
+      // Comparador claro e escuro.
+      var comp = document.getElementById('comparador');
+      var faixa = comp.querySelector('input[type=range]');
+      faixa.addEventListener('input', function () { comp.style.setProperty('--pos', faixa.value + '%'); });
+
+      // Abas de outras telas.
+      var textos = {
+        backup: 'Cópias cifradas em outro disco, verificadas, com restauração guiada. O último backup aparece no Início.',
+        entrada: 'Login por usuário com bloqueio automático. Na primeira abertura, um assistente cria a clínica, o administrador e a chave de recuperação.',
+        laudos: 'A lista com filtros por situação, tipo, médico e período, e o resumo do laudo selecionado com as imagens.'
+      };
+      var abaImg = document.getElementById('aba-img'), abaTexto = document.getElementById('aba-texto');
+      document.querySelectorAll('[data-aba]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('[data-aba]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+          var nome = b.getAttribute('data-aba');
+          abaImg.style.opacity = '0';
+          setTimeout(function () {
+            abaImg.setAttribute('data-tela', nome);
+            abaImg.src = 'telas/' + raiz.getAttribute('data-tema') + '/' + nome + '.png';
+            abaTexto.textContent = textos[nome];
+            abaImg.onload = function () { abaImg.style.opacity = '1'; };
+          }, reduzir ? 0 : 180);
+        });
+      });
+      abaImg.style.transition = 'opacity .3s ease';
+
+      // Quando houver uma release com o instalador do Windows, o botão principal baixa direto.
+      fetch('https://api.github.com/repos/hallentech/lumen-releases/releases/latest')
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (rel) {
+          var exe = (rel.assets || []).find(function (a) { return /\.exe$/i.test(a.name); });
+          if (!exe) return;
+          var botao = document.getElementById('baixar');
+          botao.href = exe.browser_download_url;
+          botao.textContent = 'Baixar para Windows (' + String(rel.tag_name || '').replace(/^v/, '') + ')';
+        })
+        .catch(function () {});
+    })();
   </script>
 </body>
 </html>
