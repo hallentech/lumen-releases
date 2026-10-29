@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Lúmen</title>
+        <link>https://lumen.hallentech.com</link>
+        <description>Atualizações do Lúmen para macOS</description>
+        <language>pt-BR</language>
+        <item>
+            <title>0.1.4</title>
+            <pubDate>Wed, 28 Oct 2026 23:58:50 -0300</pubDate>
+            <link>https://lumen.hallentech.com</link>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h2>Lúmen 0.1.4</h2>
+<p>Lúmen 0.1.4: atualização automática no Mac</p>
+<ul>
+  <li>A partir desta versão, o Lúmen avisa quando sai uma versão nova e instala com um clique, em Lúmen › Verificar atualizações. As versões chegam assinadas pela Hallen Tech, e o app recusa qualquer pacote alterado.</li>
+  <li>Nunca interrompe o trabalho: com um laudo aberto, uma emissão, um backup ou uma restauração em andamento, a instalação espera o app fechar.</li>
+  <li>Os dados ficam onde estão: a atualização troca só o aplicativo; o banco de dados cifrado, as imagens e os PDFs não mudam.</li>
+  <li>Para quem tem a 0.1.3: instale esta versão uma vez pela página lumen.hallentech.com. As próximas chegam sozinhas.</li>
+  <li>Universal (Apple Silicon e Intel), macOS 12 ou mais novo, assinado com o Developer ID e notarizado pela Apple.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/hallentech/lumen-releases/releases/download/v0.1.4/Lumen-0.1.4-macos.dmg" length="32279557" type="application/octet-stream" sparkle:edSignature="Ftq3rrnmofkC8qt09OGzgtAKVdxN8hydKhIlIT4KwEHXhT0jmX0Q1KLuGISZkxdwluDd6XBmfNh7xsBXDW2ICQ=="></enclosure>
+        </item>
+    </channel>
+</rss><!-- sparkle-signatures:
+edSignature: DDzG0ArCaVg8qTXmDEo0ESDS8+dF0NNXNTpfPVGSXbEHMoyLlKC/XXv1gctQBmZA20YulEaXabnN+KUewp5dCw==
+length: 2192
+-->
