@@ -31,10 +31,14 @@ Telas com dados fictícios.
 
 ## Baixar
 
-A primeira versão pública para Windows 11 sai em breve, assinada pela Hallen Tech; o macOS vem em seguida. Os instaladores de cada versão ficarão na aba [Releases](https://github.com/hallentech/lumen-releases/releases). Para implantar na sua clínica: contato@hallentech.com ou WhatsApp (21) 99697-3923.
+**Mac:** [baixe o `.dmg` da versão mais nova](https://github.com/hallentech/lumen-releases/releases/latest), abra e arraste o Lúmen para Aplicativos. Universal (Apple Silicon ou Intel), macOS 12 ou mais novo, assinado com o Developer ID e notarizado pela Apple. Para conferir o download: `shasum -a 256 -c SHA256SUMS.txt`.
+
+**Windows:** em breve, assinado pela Hallen Tech.
+
+Para implantar na sua clínica: contato@hallentech.com ou WhatsApp (21) 99697-3923.
 
 ## Sobre este repositório
 
-Aqui ficam só a página do produto (pasta `docs/`, publicada em lumen.hallentech.com) e, a partir da primeira versão pública, os pacotes de instalação. O código-fonte do Lúmen não é público.
+Aqui ficam só a página do produto (pasta `docs/`, publicada em lumen.hallentech.com) e os pacotes de instalação de cada versão (aba Releases). O código-fonte do Lúmen não é público.
 
 <div align="center"><sub>Lúmen, por <a href="https://hallentech.com">Hallen Tech</a>.</sub></div>
